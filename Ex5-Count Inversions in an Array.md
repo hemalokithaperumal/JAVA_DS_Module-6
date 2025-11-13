@@ -22,52 +22,45 @@ RegisterNumber: 212223110014
 */
 import java.util.Scanner;
 
-public class MatrixNature {
+public class CountInversions {
+    static long mergeCount(int[] arr, int[] temp, int left, int mid, int right) {
+        int i = left, j = mid + 1, k = left;
+        long invCount = 0;
+        while (i <= mid && j <= right) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+                invCount += (mid - i + 1);
+            }
+        }
+        while (i <= mid) temp[k++] = arr[i++];
+        while (j <= right) temp[k++] = arr[j++];
+        for (i = left; i <= right; i++) arr[i] = temp[i];
+        return invCount;
+    }
+
+    static long mergeSortCount(int[] arr, int[] temp, int left, int right) {
+        long invCount = 0;
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            invCount += mergeSortCount(arr, temp, left, mid);
+            invCount += mergeSortCount(arr, temp, mid + 1, right);
+            invCount += mergeCount(arr, temp, left, mid, right);
+        }
+        return invCount;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter number of rows: ");
-        int rows = sc.nextInt();
-        System.out.print("Enter number of columns: ");
-        int cols = sc.nextInt();
-
-        int[][] A = new int[rows][cols];
-        int[][] B = new int[rows][cols];
-        int[][] C = new int[rows][cols];
-
-        System.out.println("Enter elements of Matrix A (odd numbers):");
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                A[i][j] = sc.nextInt();
-
-        System.out.println("Enter elements of Matrix B (even numbers):");
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                B[i][j] = sc.nextInt();
-
-        System.out.println("Resultant Matrix (A + B):");
-        String nature = "";
-        boolean allEven = true, allOdd = true;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                C[i][j] = A[i][j] + B[i][j];
-                System.out.print(C[i][j] + " ");
-                if (C[i][j] % 2 == 0)
-                    allOdd = false;
-                else
-                    allEven = false;
-            }
-            System.out.println();
-        }
-
-        if (allEven)
-            nature = "Even";
-        else if (allOdd)
-            nature = "Odd";
-        else
-            nature = "Mixed";
-
-        System.out.println("Nature of resultant matrix: " + nature);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        System.out.println("Enter the elements:");
+        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+        int[] temp = new int[n];
+        long inversions = mergeSortCount(arr, temp, 0, n - 1);
+        System.out.println("Number of inversions: " + inversions);
         sc.close();
     }
 }
@@ -75,7 +68,8 @@ public class MatrixNature {
 
 ## Output:
 
-<img width="953" height="396" alt="image" src="https://github.com/user-attachments/assets/e1851ea2-bca9-4e20-8fda-c26c822cae88" />
+<img width="307" height="205" alt="image" src="https://github.com/user-attachments/assets/77bc1a29-984e-4ffb-b163-0aa13967c1e5" />
+
 
 ## Result:
 Thus the Java program to to Count the number of inversions in an array where inversion is defined as: arr[i] > arr[j] and i < jis implemented successfully.
