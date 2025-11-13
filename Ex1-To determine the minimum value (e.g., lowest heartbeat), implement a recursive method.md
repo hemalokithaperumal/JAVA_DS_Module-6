@@ -40,7 +40,7 @@ public class MinValueRecursive {
         sc.close();
     }
 }
-
+```
 ## Output:
 
 <img width="538" height="378" alt="image" src="https://github.com/user-attachments/assets/34d1835a-a903-4204-9662-ccde8f7ec68a" />
