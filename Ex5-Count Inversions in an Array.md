@@ -1,5 +1,6 @@
 # Ex5 Count Inversions in an Array
-## DATE:
+## DATE:13.11.2025
+
 ## AIM:
 To write a Java program  to Count the number of inversions in an array where inversion is defined as: arr[i] > arr[j] and i < j
 
@@ -11,7 +12,7 @@ To write a Java program  to Count the number of inversions in an array where inv
 5. Check whether all elements in Matrix C are even, odd, or mixed.  
 6. Display the resulting matrix and its nature.  
 7. Stop the program.
-8. 
+
 ## Program:
 ```
 /*
